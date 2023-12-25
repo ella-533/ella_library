@@ -2,6 +2,7 @@
 module.exports = (sequelize, DataTypes) => {
     return sequelize.define('Book', {
         // Model attributes are defined here
+        
         title: {
             type: DataTypes.STRING,
             allowNull: false,
@@ -36,6 +37,10 @@ module.exports = (sequelize, DataTypes) => {
         language: {
             type: DataTypes.STRING,
         },
+        imageUrl:{
+            type: DataTypes.STRING
+        }
+        
     }, {
         onDelete: 'CASCADE'
     }

@@ -31,6 +31,7 @@ const createUser = (req, res) => {
         .then((hash) => {
             User.create({ ...req.body, password: hash })
                 .then((user) => {
+                    user.password
                     res.status(201).json({ message: `L'utilisateur a bien été créé`, data: user })
                 })
                 .catch((error) => {
@@ -49,10 +50,20 @@ const updateUser = (req, res) => {
     User.findByPk(req.params.id)
         .then((result) => {
             if (result) {
-                return result.update(req.body)
-                    .then(() => {
-                        res.status(201).json({ message: `L'utilisateur a bien été mis à jour.`, data: result })
-                    })
+                if (req.body.password) {
+                    return bcrypt.hash(req.body.password, 10)
+                        .then((hash) => {
+                            req.body.password = hash
+
+                             // On empêche l'utilisateur de mettre à jour son username
+                             req.body.username = result.username
+
+                            return result.update(req.body)
+                                .then(() => {
+                                    res.status(201).json({ message: `L'utilisateur a bien été mis à jour.`, data: result })
+                                })
+                        })
+                }
                     
             } else {
                 res.status(404).json({ message: `Aucun utilisateur à mettre à jour n'a été trouvé.` })

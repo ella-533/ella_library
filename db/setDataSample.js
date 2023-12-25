@@ -12,7 +12,7 @@ mockBooks.forEach((element) => {
         })
 })
 }
-const setUsers = (User) => {
+function setUsers(User) {
     mockUsers.forEach(user => {
         bcrypt.hash(user.password, 10)
             .then(hashResult => {
@@ -26,8 +26,7 @@ const setUsers = (User) => {
 }
 
 const setRoles = (Role) => {
-    Role.create({ label: "admin" })
-    Role.create({ label: "edit" })
+    return Promise.all([Role.create({ label: "admin" }), Role.create({ label: "edit" })])
 }
 
 module.exports = { setBooks, setUsers, setRoles }
