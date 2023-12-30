@@ -4,9 +4,7 @@
   "description": "mon projet",
   "main": "app.js",
   "scripts": {
-    "start": "NODE_ENV=production node app.js",
-    "dev": "NODE_ENV=development npx nodemon app.js"
-
+    "start": "npx nodemon app.js"
   },
   "author": "Ella Ahmad",
   "license": "ISC",

@@ -7,11 +7,11 @@ const findAllBooks = (req, res) => {
      //paramètre optionnel qui permet d'ajouter les données relatives aux commentaires d'un book
     Book.findAll({ include: [Review, User] })
         .then((results) => {
-           res.json(results)
+            res.json(results)
         })
         .catch(error => {
-           res.status(500).json(error.message)
-       })
+            res.status(500).json(error.message)
+        })
 }
 
 //Raw Sql
@@ -48,7 +48,7 @@ const createBook = (req, res) => {
                 return res.status(404).json({ message: `L'utilisateur n'a pas été trouvé.` })
             }
             const newBook = { ...req.body, UserId: user.id, imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}` }
-
+            
             Book.create(newBook)
                 .then((book) => {
                     res.status(201).json({ message: 'Le book a bien été créé', data: book })
@@ -69,7 +69,7 @@ const updateBook = (req, res) => {
     Book.findByPk(req.params.id)
         .then((result) => {
             if (result) {
-                return result.update({ ...req.body, imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}` })
+                return result.update({ ...req.body, imageUrl: `${req.protocol}://${req.get('host')}/images/${req.images}` })
                     .then(() => {
                         res.status(201).json({ message: 'Le book a bien été mis à jour.', data: result })
                     })

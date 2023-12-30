@@ -37,9 +37,6 @@ module.exports = (sequelize, DataTypes) => {
         language: {
             type: DataTypes.STRING,
         },
-        imageUrl:{
-            type: DataTypes.STRING
-        }
         
     }, {
         onDelete: 'CASCADE'

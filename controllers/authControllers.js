@@ -30,7 +30,7 @@ const login = (req, res) => {
         })
 }
 
-const protect = (req, res, next) => {
+function protect(req, res, next) {
     if (!req.headers.authorization) {
         return res.status(401).json({ message: `Vous n'êtes pas authentifié.` })
     }
@@ -39,7 +39,7 @@ const protect = (req, res, next) => {
 
     if (token) {
         try {
-            const decoded = jwt.verify(token, SECRET_KEY);
+            const decoded = jwt.verify(token, SECRET_KEY)
             req.username = decoded.data
             next()
         } catch (error) {
